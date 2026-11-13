@@ -111,3 +111,16 @@ console.log("\nPruebas con ventasPorCiudad:");
 console.log("Completo:", ventasPorCiudad(ventas, "Medellín"));
 console.log("Un elemento:", ventasPorCiudad(unaVenta, "Medellín"));
 console.log("Vacío:", ventasPorCiudad(sinVentas, "Medellín"));
+
+
+function totalVendidoM(ventas){
+    return ventas.reduce((acc, v) => acc + valorVenta(v), 0);
+}
+
+function unidadesVendidasM(ventas){
+    return ventas.reduce((acc, v) => acc + (v.cantidad > 0 ? v.cantidad : 0), 0)
+}
+
+function ventasPorCiudadM(ventas, ciudad){
+    return ventas.filter((v) => normalizacion(v.ciudad) === normalizacion(ciudad))
+}
