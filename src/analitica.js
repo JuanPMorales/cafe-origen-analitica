@@ -122,5 +122,13 @@ function unidadesVendidasM(ventas){
 }
 
 function ventasPorCiudadM(ventas, ciudad){
-    return ventas.filter((v) => normalizacion(v.ciudad) === normalizacion(ciudad))
+    return ventas
+        .filter((v) => normalizacion(v.ciudad) === normalizacion(ciudad))
+        .reduce((acc, v) => acc + valorVenta(v), 0)
 }
+
+module.exports = {
+    totalVendido, totalVendidoM,
+    unidadesVendidas, unidadesVendidasM,
+    ventasPorCiudad, ventasPorCiudadM
+};
