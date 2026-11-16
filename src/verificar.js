@@ -39,16 +39,11 @@ console.log("Total por ciudad:", ciudadesCorrectas ? "OK" : "DIFERENTE");
 
 const sumaUnidades = Object.values(unidadesProductos)
     .reduce((acc, cantidad) => acc + cantidad, 0);
-
 const productosCorrectos = sumaUnidades === unidadesVendidas(ventas);
-
 console.log("Unidades por producto:", productosCorrectos ? "OK" : "DIFERENTE");
 
 
-
-
 const top = topProductosPorValor(ventas, 3)
-
 const cantidadCorrecta = top.length === 3
 const ordenCorrecto = top[0][1] >= top[1][1] && top[1][1] >= top[2][1]
 
