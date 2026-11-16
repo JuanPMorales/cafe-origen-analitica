@@ -6,7 +6,9 @@ const {
     ventasPorCiudad, ventasPorCiudadM,
     totalPorCiudad,
     unidadesPorProducto,
-    topProductosPorValor
+    topProductosPorValor,
+    ventasDelDia,
+    ticketPromedio
 } = require('./analitica');
 
 
@@ -50,4 +52,13 @@ const ordenCorrecto = top[0][1] >= top[1][1] && top[1][1] >= top[2][1]
 console.log("Cantidad:", cantidadCorrecta ? "OK" : "DIFERENTE");
 console.log("Orden:", ordenCorrecto ? "OK" : "DIFERENTE");
 
+// Errores de la gerente 
+const ventasPrueba = [
+    { ciudad: "Bogotá", producto: "Café", cantidad: 2, precio: 10000 },
+    { ciudad: " BOGOTÁ ", producto: "Té", cantidad: 1, precio: 5000 }
+];
 
+console.log(totalPorCiudad(ventasPrueba));
+
+const ventasSinDia = ventasDelDia(ventas, "2026-09-07");
+console.log("Ticket promedio sin ventas:", ticketPromedio(ventasSinDia));

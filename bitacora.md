@@ -226,3 +226,43 @@ Los resultados coinciden.
 - **¿Qué transformo?** Normalizo los nombres de producto, transformo cada venta en su valor monetario y convierto los totales en pares `[producto, valor]`.
 - **¿Qué acumulo?** Acumulo el valor total de cada producto.
 - **¿Cómo agrupo?** Agrupo por producto normalizado, ordeno los grupos de mayor a menor valor y selecciono los primeros `k`.
+
+## Error 1: Bogotá aparece duplicada
+
+**Síntoma:** En una versión preliminar, Bogotá aparecía dos veces al agrupar las ventas por ciudad.
+
+**Entrada que lo produce:** Dos ventas con los nombres `"Bogotá"` y `" BOGOTÁ "`.
+
+**Hipótesis:** Las diferencias entre mayúsculas, minúsculas y espacios provocaban que una misma ciudad se identificara como dos grupos diferentes.
+
+**Prueba realizada:** Se creó un arreglo con dos ventas de Bogotá escritas de manera diferente y se ejecutó `totalPorCiudad(ventasPrueba)`.
+
+**Resultado obtenido:**
+```text
+{ 'bogotá': 25000 }
+```
+
+**Causa:** La falta de normalización de los nombres puede provocar grupos duplicados.
+
+**Corrección:** La función utiliza `normalizacion()`, que aplica `trim()` y `toLowerCase()` para unificar los nombres antes de agruparlos. La prueba confirma que nuestra versión agrupa ambas ventas correctamente.
+
+---
+
+## Error 2: Ticket promedio devuelve NaN
+
+**Síntoma:** En una versión preliminar, el ticket promedio mostraba `NaN` cuando se consultaba un día sin ventas.
+
+**Entrada que lo produce:** Un arreglo vacío `[]`, correspondiente a un día sin ventas.
+
+**Hipótesis:** Se estaba dividiendo el total vendido entre cero.
+
+**Prueba realizada:** Se ejecutó `ticketPromedio(ventasSinDia)` utilizando un día sin ventas.
+
+**Resultado obtenido:**
+```text
+Ticket promedio sin ventas: 0
+```
+
+**Causa:** Si se realiza una división `0 / 0`, JavaScript devuelve `NaN`.
+
+**Corrección:** La función verifica si `cantidadVentas === 0` y devuelve `0` antes de realizar la división. La prueba confirma que nuestra versión evita el resultado `NaN`.
