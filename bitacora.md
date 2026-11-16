@@ -120,3 +120,109 @@ Los resultados coinciden.
 Resultado manual: `356000`
 Resultado del programa: `ventasPorCiudad(ventas, "Medellín") = 356000`
 Los resultados coinciden.
+
+## Preguntas de la sesión por función
+
+### `valorVenta(venta)`
+
+- **¿Qué recorro?** No recorro una colección; recibo una venta.
+- **¿Qué filtro?** No filtro registros.
+- **¿Qué transformo?** Transformo una venta en su valor monetario multiplicando `cantidad * precio`.
+- **¿Qué acumulo?** No acumulo; calculo un único valor.
+- **¿Cómo agrupo?** No agrupo.
+
+### `normalizacion(texto)`
+
+- **¿Qué recorro?** No recorro una colección; recibo un texto.
+- **¿Qué filtro?** No filtro datos.
+- **¿Qué transformo?** Transformo el texto quitando espacios al inicio y al final y convirtiéndolo a minúsculas.
+- **¿Qué acumulo?** No acumulo.
+- **¿Cómo agrupo?** No agrupo directamente, pero dejo textos equivalentes con una misma representación para poder agruparlos después.
+
+### `totalVendido(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas.
+- **¿Qué filtro?** No filtro ventas; también considero las que tienen cantidad `0`.
+- **¿Qué transformo?** Transformo cada venta en su valor mediante `valorVenta`.
+- **¿Qué acumulo?** Acumulo el valor de cada venta en `total`.
+- **¿Cómo agrupo?** No agrupo por una categoría; reúno todos los valores en un total general.
+
+### `unidadesVendidas(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas.
+- **¿Qué filtro?** Considero únicamente las ventas cuya `cantidad` es mayor que `0`.
+- **¿Qué transformo?** Tomo la cantidad de unidades de cada venta válida.
+- **¿Qué acumulo?** Acumulo las unidades en `totalUnidades`.
+- **¿Cómo agrupo?** No agrupo por una categoría; reúno las unidades en un total general.
+
+### `ventaMayor(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas para compararlas.
+- **¿Qué filtro?** Selecciono la venta cuyo valor es mayor que el de la venta guardada como `mayor`.
+- **¿Qué transformo?** Transformo cada venta en su valor monetario para poder compararla.
+- **¿Qué acumulo?** No acumulo una suma; conservo la mejor venta encontrada hasta el momento.
+- **¿Cómo agrupo?** No agrupo; reduzco todas las ventas a una sola venta mayor.
+
+### `ticketPromedio(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas.
+- **¿Qué filtro?** Considero únicamente las ventas cuya `cantidad` es mayor que `0`.
+- **¿Qué transformo?** Transformo cada venta válida en su valor monetario.
+- **¿Qué acumulo?** Acumulo el valor total en `total` y la cantidad de ventas válidas en `cantidadVentas`.
+- **¿Cómo agrupo?** Agrupo conceptualmente las ventas válidas para calcular su promedio: `total / cantidadVentas`.
+
+### `ventasPorCiudad(ventas, ciudad)`
+
+- **¿Qué recorro?** Recorro todas las ventas.
+- **¿Qué filtro?** Selecciono las ventas cuya ciudad normalizada coincide con la ciudad solicitada.
+- **¿Qué transformo?** Normalizo las ciudades y transformo las ventas coincidentes en su valor monetario.
+- **¿Qué acumulo?** Acumulo el valor de las ventas coincidentes en `total`.
+- **¿Cómo agrupo?** Agrupo las ventas por la ciudad indicada, tratando igual las diferencias de mayúsculas y minúsculas.
+
+### `totalVendidoM(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas mediante `reduce`.
+- **¿Qué filtro?** No filtro ventas.
+- **¿Qué transformo?** Transformo cada venta en su valor mediante `valorVenta`.
+- **¿Qué acumulo?** Acumulo los valores en el acumulador `acc`.
+- **¿Cómo agrupo?** No agrupo por categoría; calculo un total general.
+
+### `unidadesVendidasM(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas mediante `reduce`.
+- **¿Qué filtro?** Solo sumo la cantidad cuando `cantidad > 0`.
+- **¿Qué transformo?** Transformo cada venta en su cantidad válida o en `0`.
+- **¿Qué acumulo?** Acumulo las unidades en `acc`.
+- **¿Cómo agrupo?** No agrupo por categoría; calculo un total general de unidades.
+
+### `ventasPorCiudadM(ventas, ciudad)`
+
+- **¿Qué recorro?** Recorro todas las ventas mediante `filter` y luego las ventas coincidentes mediante `reduce`.
+- **¿Qué filtro?** `filter` conserva las ventas cuya ciudad normalizada coincide con la ciudad solicitada.
+- **¿Qué transformo?** Normalizo las ciudades y transformo cada venta filtrada en su valor monetario.
+- **¿Qué acumulo?** Acumulo los valores de las ventas filtradas en `acc`.
+- **¿Cómo agrupo?** Agrupo por la ciudad solicitada antes de calcular su total.
+
+### `totalPorCiudad(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas mediante `reduce`.
+- **¿Qué filtro?** No filtro ventas.
+- **¿Qué transformo?** Normalizo la ciudad de cada venta y transformo la venta en su valor monetario.
+- **¿Qué acumulo?** Acumulo el valor de cada venta en el total asociado a su ciudad.
+- **¿Cómo agrupo?** Agrupo por ciudad normalizada usando un objeto cuyas claves son las ciudades.
+
+### `unidadesPorProducto(ventas)`
+
+- **¿Qué recorro?** Recorro todas las ventas mediante `reduce`.
+- **¿Qué filtro?** No filtro ventas; incluyo también las que tienen cantidad `0`.
+- **¿Qué transformo?** Normalizo el nombre del producto y tomo su cantidad.
+- **¿Qué acumulo?** Acumulo las unidades vendidas en el total asociado a cada producto.
+- **¿Cómo agrupo?** Agrupo por producto normalizado usando un objeto cuyas claves son los productos.
+
+### `topProductosPorValor(ventas, k)`
+
+- **¿Qué recorro?** Recorro todas las ventas para calcular los totales por producto; después recorro las entradas para ordenarlas.
+- **¿Qué filtro?** Después de ordenar, conservo únicamente los primeros `k` productos mediante `slice`.
+- **¿Qué transformo?** Normalizo los nombres de producto, transformo cada venta en su valor monetario y convierto los totales en pares `[producto, valor]`.
+- **¿Qué acumulo?** Acumulo el valor total de cada producto.
+- **¿Cómo agrupo?** Agrupo por producto normalizado, ordeno los grupos de mayor a menor valor y selecciono los primeros `k`.

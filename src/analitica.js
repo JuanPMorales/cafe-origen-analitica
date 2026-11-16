@@ -127,8 +127,48 @@ function ventasPorCiudadM(ventas, ciudad){
         .reduce((acc, v) => acc + valorVenta(v), 0)
 }
 
+function totalPorCiudad(ventas){
+    return ventas.reduce((acc, v) => {
+        const ciudad = normalizacion(v.ciudad);
+        acc[ciudad] = (acc[ciudad] || 0) + valorVenta(v);
+        return acc;
+    }, {});
+}
+
+console.log("Total por Ciudad",totalPorCiudad(ventas));
+
+function unidadesPorProducto(ventas) {
+    return ventas.reduce((acc, v) => {
+        const producto = normalizacion(v.producto)
+        // Acumula la cantidad vendida de cada producto en el acumulador.
+        acc[producto] = (acc[producto] || 0) + v.cantidad;
+        return acc 
+    }, {})
+}
+
+console.log("unidades Por Producto: ", unidadesPorProducto(ventas));
+
+function topProductosPorValor(ventas, k){
+    const totales =  ventas.reduce((acc, v) => {
+        const producto = normalizacion(v.producto)
+        acc[producto] = (acc[producto] || 0) + valorVenta(v);
+        return acc
+    }, {})
+
+    const productos =  Object.entries(totales)
+    const ordenados = [...productos].sort((a, b) => b[1] - a[1]);
+    const top = ordenados.slice(0, k)
+
+    return top
+}
+
+console.log(topProductosPorValor(ventas, 3));
+
 module.exports = {
     totalVendido, totalVendidoM,
     unidadesVendidas, unidadesVendidasM,
-    ventasPorCiudad, ventasPorCiudadM
+    ventasPorCiudad, ventasPorCiudadM,
+    totalPorCiudad,
+    unidadesPorProducto,
+    topProductosPorValor
 };
