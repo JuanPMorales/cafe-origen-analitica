@@ -175,5 +175,6 @@ module.exports = {
     unidadesPorProducto,
     topProductosPorValor,
     ventasDelDia,
-    ticketPromedio
+    ticketPromedio,
+    normalizacion
 };

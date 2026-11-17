@@ -40,6 +40,6 @@ top.forEach(([producto, total], posicion) =>{
     console.log(`${posicion + 1} - ${producto}: $${total.toLocaleString("es-CO")}`);
 })
 
-console.log("\n---Ventas del Día ---");
+console.log("\n--- Ventas del Día ---");
 console.log(`ventas del día "2026-09-01": ${ventasDia.length}`);
 console.log(`ventas del día "2026-09-07": ${ventasSinDia.length}`);
