@@ -284,5 +284,28 @@ ventas, cada función va a recorrer las 100 ventas una sola vez. Si la cantidad
 de ventas aumenta, la cantidad de operaciones también aumenta en la misma
 proporción.
 
+## Predicciones con los resultados
+
+La tabla mostrada por `console.table(resultado)` fue:
+
+| `n` | `totalVendido` | `ventaMayor` | `totalPorCiudad` | `primeraVenta` |
+|---:|---:|---:|---:|---:|
+| 100 | 100 | 100 | 100 | 1 |
+| 1.000 | 1.000 | 1.000 | 1.000 | 1 |
+| 10.000 | 10.000 | 10.000 | 10.000 | 1 |
+| 100.000 | 100.000 | 100.000 | 100.000 | 1 |
+
+| Función | Predicción | Resultado al multiplicar n por 10 | Complejidad |
+|---|---|---|---|
+| `totalVendido` | Las operaciones aumentan 10 veces. | De 100 a 1.000, luego 10.000 y 100.000. | **O(n)** |
+| `ventaMayor` | Las operaciones aumentan aproximadamente 10 veces. | De 100 a 1.000, luego 10.000 y 100.000. | **O(n)** |
+| `totalPorCiudad` | Las operaciones aumentan aproximadamente 10 veces. | De 100 a 1.000, luego 10.000 y 100.000. | **O(n)** |
+| `primeraVenta` | Las operaciones permanecen constantes. | Siempre registra 1 operación. | **O(1)** |
+
+Al comparar los resultados, pude comprobar que mis predicciones fueron correctas. Las funciones totalVendido, ventaMayor y totalPorCiudad son O(n) porque recorren todas las ventas y, cuando la cantidad de datos aumenta 10 veces, sus operaciones también aumentan 10 veces.
+
+En cambio, primeraVenta es O(1) porque solo obtiene la primera venta, sin importar cuántos datos existan.
+
+
 
 

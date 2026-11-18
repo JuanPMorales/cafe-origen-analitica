@@ -1,4 +1,4 @@
-const ventas = require('./datos');
+const {generarVentas} = require('./generador');
 
 const {
     valorVenta,
@@ -7,7 +7,7 @@ const {
 
 
 const contador = { 
-    ops: 0 
+    ops: 0
 }
 
 function totalVendido(ventas, contador){
@@ -19,7 +19,7 @@ function totalVendido(ventas, contador){
     return total;
 }
 
-console.log("Total vendido: ", totalVendido(ventas, contador));
+console.log("Total vendido: ", totalVendido(generarVentas(10), contador));
 console.log("Operaciones realizadas: ", contador.ops);
 
 function ventaMayor(ventas, contador){
@@ -32,7 +32,8 @@ function ventaMayor(ventas, contador){
     }
     return mayor;
 }
-console.log("Venta mayor: ", ventaMayor(ventas, contador));
+
+console.log("Venta mayor: ", ventaMayor(generarVentas(10), contador));
 console.log("Operaciones realizadas: ", contador.ops);
 
 function totalPorCiudad(ventas, contador){
@@ -44,5 +45,23 @@ function totalPorCiudad(ventas, contador){
         }, {});
 }
 
-console.log("Total por ciudad: ", totalPorCiudad(ventas, contador));
+console.log("Total por ciudad: ", totalPorCiudad(generarVentas(10), contador));
 console.log("Operaciones realizadas: ", contador.ops);
+
+
+
+function primeraVenta(ventas, contador){
+    contador.ops++
+
+    return ventas[0]
+}
+
+console.log("Operaciones", contador.ops);
+
+
+module.exports = {
+    totalVendido,
+    ventaMayor,
+    totalPorCiudad,
+    primeraVenta
+}
