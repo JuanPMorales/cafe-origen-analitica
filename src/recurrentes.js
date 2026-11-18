@@ -13,5 +13,14 @@ function clientesRecurrentes(ventas){
     return recurrentes;
 }
 
+for(const n of clientesRecurrentes(ventas)){
+
+    console.time(`tiempo de: ${n}: `)
+
+    clientesRecurrentes(n)
+
+    console.timeEnd(`tiempo de: ${n}: `)
+
+}
 
 console.log(clientesRecurrentes(ventas));

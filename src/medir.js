@@ -14,7 +14,7 @@ const n = [100, 1000, 10000, 100000]
 const resultado = []
 
 for (let i = 0; i < n.length; i++ ){
-
+    console.time(`tiempo de ${n[i]}: `)
     let v = generarVentas(n[i])
 
     let contadorVendido = { ops: 0 }
@@ -36,7 +36,36 @@ for (let i = 0; i < n.length; i++ ){
         totalPorCiudad: contadorCiudad.ops.toLocaleString("es-CO"),
         primeraVenta: contadorPrimera.ops
     })
+    console.timeEnd(`tiempo de ${n[i]}: `)
 }
 
 
+console.log("===========");
+
+function ciclo(n){
+    for(let i = 0; i < n; i++){
+    }
+}
+
+const tiempos = [1000, 2000, 4000, 8000, 16000]
+const tabla = []
+
+for (const n of tiempos){
+
+    console.time(`tiempo de: ${n}: `)
+    const inicio = performance.now();
+
+    ciclo(n)
+
+    const fin = performance.now();
+    console.timeEnd(`tiempo de: ${n}: `)
+
+
+    tabla.push({
+        n: n,
+        tiempos_ms: `${(fin - inicio).toFixed(3)} ms`
+    })
+}
+
+console.table(tabla);
 console.table(resultado);
