@@ -26,3 +26,7 @@ function generarVentas(n) {
 }
 
 console.table(generarVentas(10));
+
+module.exports = {
+    generarVentas
+}
