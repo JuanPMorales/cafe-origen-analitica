@@ -24,7 +24,7 @@ function generarVentas(n) {
     return ventasR
 }
 
-console.table(generarVentas(10));
+console.table(generarVentas(100));
 
 module.exports = {
     generarVentas

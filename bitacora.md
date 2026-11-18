@@ -306,6 +306,24 @@ Al comparar los resultados, pude comprobar que mis predicciones fueron correctas
 
 En cambio, primeraVenta es O(1) porque solo obtiene la primera venta, sin importar cuántos datos existan.
 
+## Traza de comparaciones de `ventaMayor`
+
+Para la traza tomé las primeras cinco ventas de `datos.js`. El valor de cada
+venta se calcula como `cantidad * precio`. La función inicia con la primera
+venta como `mayor` y compara cada venta del arreglo con ese valor:
+
+| Comparación | ID de la venta | Valor de la venta | Mayor antes | ¿Es mayor? | Mayor después |
+|---:|---:|---:|---:|---|---:|
+| 1 | 1 | 84.000 | 84.000 | No | 84.000 |
+| 2 | 2 | 26.000 | 84.000 | No | 84.000 |
+| 3 | 3 | 95.000 | 84.000 | Sí | 95.000 |
+| 4 | 4 | 42.000 | 95.000 | No | 95.000 |
+| 5 | 5 | 135.000 | 95.000 | Sí | 135.000 |
+
+Con este arreglo de cinco ventas, `ventaMayor` hace **5 comparaciones** y devuelve la venta con ID 5, cuyo valor es 135.000. En la implementación actual, el ciclo también compara la primera venta consigo misma, porque
+recorre el arreglo completo después de inicializar `mayor`.
+
+Generalizando, con `n` ventas la función hace **n comparaciones**, por lo que su complejidad es `O(n)`. Si el ciclo comenzara desde la segunda venta, podría hacer `n - 1` comparaciones; sin embargo, con el código actual el resultado es `n`.
 
 
 
