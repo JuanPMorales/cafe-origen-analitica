@@ -266,3 +266,23 @@ Ticket promedio sin ventas: 0
 **Causa:** Si se realiza una división `0 / 0`, JavaScript devuelve `NaN`.
 
 **Corrección:** La función verifica si `cantidadVentas === 0` y devuelve `0` antes de realizar la división. La prueba confirma que nuestra versión evita el resultado `NaN`.
+
+## Predicción al multiplicar `n` por 10
+
+Aquí, `n` representa la cantidad de ventas de entrada. Antes de ejecutar la
+prueba, predigo cómo cambiará el número de operaciones:
+
+| Función | Operaciones realizadas por cada venta | Complejidad | Predicción si `n` pasa a `10n` |
+|---|---|---|---|
+| `totalVendido` | Llamar a `valorVenta`, multiplicar `cantidad * precio` y sumar al acumulador. | `O(n)` | El recorrido y las operaciones se multiplican por `10`. |
+| `ventaMayor` | Llamar a `valorVenta` para la venta actual y para `mayor`, multiplicar, comparar y, algunas veces, asignar una nueva venta mayor. | `O(n)` | Las comparaciones y multiplicaciones se multiplican aproximadamente por `10`; las asignaciones dependen de los datos. |
+| `totalPorCiudad` | Normalizar la ciudad, buscar su grupo, llamar a `valorVenta`, multiplicar y sumar al acumulador de esa ciudad. | `O(n)` | El recorrido y las operaciones se multiplican aproximadamente por `10`; habrá más grupos solo si aparecen más ciudades distintas. |
+
+Las tres funciones son `O(n)` porque trabajan de forma lineal. Cada función
+recorre una sola vez el arreglo de ventas que haya. Es decir, si hay 100
+ventas, cada función va a recorrer las 100 ventas una sola vez. Si la cantidad
+de ventas aumenta, la cantidad de operaciones también aumenta en la misma
+proporción.
+
+
+
