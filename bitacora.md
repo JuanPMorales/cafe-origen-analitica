@@ -326,6 +326,8 @@ recorre el arreglo completo después de inicializar `mayor`.
 Generalizando, con `n` ventas la función hace **n comparaciones**, por lo que su complejidad es `O(n)`. Si el ciclo comenzara desde la segunda venta, podría hacer `n - 1` comparaciones; sin embargo, con el código actual el resultado es `n`.
 
 
+
+*** 
  ## Comparacion de `Tabla de Tiempos de [1.000, 2.000, 4.000, 8.000, 16.000.]`
 
 |Datos|Tiempos_ms|Incremento|
@@ -351,3 +353,58 @@ Si con `16.000` ventas el contador tarda `3.458 ms`. Si calculamos `100.000` ent
 | 16.000 | 1x | 3.458 ms | - |
 | 100.000 | 6.25x | 21.613 ms | 26.909 ms | 
 | 1.000.000 | 62.5x | 216.125 ms | 312.451 ms |
+
+
+
+
+## Comparación de `Tabla de Tiempos de [1.000, 2.000, 4.000, 8.000, 16.000]`
+
+| Datos | Tiempos_ms | Incremento |
+|---:|---:|---:|
+| 1000 | 6.523 ms | --- |
+| 2000 | 17.344 ms | x2.66 |
+| 4000 | 52.113 ms | x3.00 |
+| 8000 | 253.317 ms | x4.86 |
+| 16000 | 914.986 ms | x3.61 |
+
+En la tabla podemos observar que cuando duplicamos la cantidad de datos, el tiempo de ejecución aumenta considerablemente, acercándose al comportamiento esperado de una complejidad O(n²).
+
+Por ejemplo, cuando pasamos de 8.000 a 16.000 datos, el tiempo aumenta de `253.317 ms` a `914.986 ms`, aproximadamente `3.61 veces`.
+
+Esto demuestra un crecimiento cercano al cuadrático, ya que en una complejidad O(n²), cuando duplicamos la cantidad de datos, esperamos que el tiempo de ejecución aumente aproximadamente `4 veces`.
+
+Aunque los incrementos no son exactamente x4, los resultados son compatibles con una complejidad O(n²), considerando las variaciones que pueden presentarse durante la ejecución.
+
+## Estimación de cuánto tardaría la función con 100.000 y con 1.000.000 de ventas
+
+Si con `16.000` ventas la función tarda `914.986 ms`, podemos estimar cuánto tardaría con cantidades mayores utilizando la complejidad O(n²).
+
+Para `100.000` ventas, dividimos `100.000 / 16.000`, obteniendo un factor de `6.25`.
+
+Como la complejidad es O(n²), elevamos ese factor al cuadrado:
+
+`914.986 × (6.25)² = 35.741,64 ms`
+
+Esto equivale aproximadamente a `35.74 segundos`.
+
+Para `1.000.000` de ventas, dividimos `1.000.000 / 16.000`, obteniendo un factor de `62.5`.
+
+Aplicamos nuevamente la complejidad cuadrática:
+
+`914.986 × (62.5)² = 3.574.164,06 ms`
+
+Esto equivale aproximadamente a `59.57 minutos`.
+
+| Ventas | Factor respecto a 16.000 | Tiempo estimado O(n²) | Tiempo real |
+|---:|---:|---:|---:|
+| 16.000 | 1x | 914.986 ms | 914.986 ms |
+| 100.000 | 6.25x | 35.741,64 ms (35.74 s) | Pendiente |
+| 1.000.000 | 62.5x | 3.574.164,06 ms (59.57 min) | No ejecutado |
+
+### Conclusión
+
+Con las nuevas mediciones, el comportamiento del algoritmo es compatible con una complejidad O(n²), porque el tiempo de ejecución crece aproximadamente de forma cuadrática al aumentar la cantidad de datos.
+
+La estimación para `100.000` ventas es de `35.74 segundos`, por lo que podemos ejecutar la prueba, ya que es inferior al límite de `2 minutos` establecido en el ejercicio.
+
+Para `1.000.000` de ventas, el tiempo estimado es de aproximadamente `59.57 minutos`, por lo que no sería recomendable ejecutar esa prueba para esta actividad.

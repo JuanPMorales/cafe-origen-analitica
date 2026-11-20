@@ -1,9 +1,10 @@
-const ventas = require('./datos')
-
+const {
+    generarVentas
+} = require('./generador')
 
 function clientesRecurrentes(ventas){
-     const recurrentes = [];
-     for (let i = 0; i < ventas.length; i++) {
+    const recurrentes = [];
+    for (let i = 0; i < ventas.length; i++) {
         for (let j = i + 1; j < ventas.length; j++) {
             if (ventas[i].cliente === ventas[j].cliente && !recurrentes.includes(ventas[i].cliente)) {
                 recurrentes.push(ventas[i].cliente);
@@ -13,14 +14,23 @@ function clientesRecurrentes(ventas){
     return recurrentes;
 }
 
-for(const n of clientesRecurrentes(ventas)){
+const datos = [1000, 2000, 4000, 8000, 16000]
+const tabla = []
 
-    console.time(`tiempo de: ${n}: `)
+for (const n of datos) {
 
-    clientesRecurrentes(n)
+    const v = generarVentas(n)
 
+    console.time(`tiempo de: ${n}: `) 
+    const inicio = performance.now()
+    clientesRecurrentes(v)
+    const fin = performance.now();
     console.timeEnd(`tiempo de: ${n}: `)
 
+    tabla.push({
+        Datos: n,
+        tiempos_ms: `${(fin - inicio).toFixed(3)} ms`
+    })
 }
 
-console.log(clientesRecurrentes(ventas));
+console.table(tabla);
