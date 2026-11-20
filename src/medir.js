@@ -55,14 +55,16 @@ for (const n of tiempos){
     console.time(`tiempo de: ${n}: `)
     const inicio = performance.now();
 
-    ciclo(n)
+    let v = generarVentas(n)
+
+    ciclo(v)
 
     const fin = performance.now();
     console.timeEnd(`tiempo de: ${n}: `)
 
 
     tabla.push({
-        n: n,
+        Datos: n,
         tiempos_ms: `${(fin - inicio).toFixed(3)} ms`
     })
 }

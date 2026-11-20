@@ -326,4 +326,17 @@ recorre el arreglo completo después de inicializar `mayor`.
 Generalizando, con `n` ventas la función hace **n comparaciones**, por lo que su complejidad es `O(n)`. Si el ciclo comenzara desde la segunda venta, podría hacer `n - 1` comparaciones; sin embargo, con el código actual el resultado es `n`.
 
 
+ ## Comparacion de `Tabla de Tiempos de [1.000, 2.000, 4.000, 8.000, 16.000.]`
 
+|Datos|Tiempos_ms|Incremento|
+|---:|---:|---:|
+|1000|'0.147 ms'|---
+|2000|'0.243 ms'| x1.65|
+|4000|'0.692 ms'| x2.84|
+|8000|'1.714 ms'| x2.47|
+|16000|'3.458 ms'|x2.01|
+
+
+En la tabla se pueden ver que cuando duplicamos la cantidad de datos, el tiempo de ejecucion aumenta de forma progresiva, pero este no se duplica como se espera en O(n²). 
+
+Un ejemplo es cuando se pasa de 8.000 a 16.000 el tiempo se duplica. Lo que demuestra que el tiempo de ejecución aumenta a medida que crecen los datos. La complejidad de esta tabla se acerca más a O(n) que a una complejidad O(n²) ya que el tiempo aumenta aproximadamente x2 que un x4 que es lo que se espera en la complejidad O(n²).
