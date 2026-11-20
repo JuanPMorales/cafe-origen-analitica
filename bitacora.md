@@ -340,3 +340,14 @@ Generalizando, con `n` ventas la función hace **n comparaciones**, por lo que s
 En la tabla se pueden ver que cuando duplicamos la cantidad de datos, el tiempo de ejecucion aumenta de forma progresiva, pero este no se duplica como se espera en O(n²). 
 
 Un ejemplo es cuando se pasa de 8.000 a 16.000 el tiempo se duplica. Lo que demuestra que el tiempo de ejecución aumenta a medida que crecen los datos. La complejidad de esta tabla se acerca más a O(n) que a una complejidad O(n²) ya que el tiempo aumenta aproximadamente x2 que un x4 que es lo que se espera en la complejidad O(n²).
+
+
+## Estimacion de cuanto tardaría la función con 100.000 y con 1.000.000 de ventas.
+
+Si con `16.000` ventas el contador tarda `3.458 ms`. Si calculamos `100.000` entre las `16.000` ventas tendremos `6.25` veces más ventas. Y nos daria un tiempo estimado de `21.613 ms` y para `1.000.000` ventas entre `16.000` ventas hay `62.5` veces más ventas, y un tiempo aprox de `216.125 ms`
+
+| Ventas | Factor respecto a 16.000 ventas | Tiempo estimado |Tiempo Real
+|---:|---:|---:|---:|
+| 16.000 | 1x | 3.458 ms | - |
+| 100.000 | 6.25x | 21.613 ms | 26.909 ms | 
+| 1.000.000 | 62.5x | 216.125 ms | 312.451 ms |

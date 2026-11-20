@@ -47,7 +47,7 @@ function ciclo(n){
     }
 }
 
-const tiempos = [1000, 2000, 4000, 8000, 16000]
+const tiempos = [1000, 2000, 4000, 8000, 16000, 100000, 1000000]
 const tabla = []
 
 for (const n of tiempos){
