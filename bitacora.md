@@ -327,7 +327,8 @@ Generalizando, con `n` ventas la función hace **n comparaciones**, por lo que s
 
 
 
-*** 
+***
+*Esta comparación hace parte de la medición realizada por las funciones definidas en `medir.js`.*
  ## Comparacion de `Tabla de Tiempos de [1.000, 2.000, 4.000, 8.000, 16.000.]`
 
 |Datos|Tiempos_ms|Incremento|
@@ -355,8 +356,8 @@ Si con `16.000` ventas el contador tarda `3.458 ms`. Si calculamos `100.000` ent
 | 1.000.000 | 62.5x | 216.125 ms | 312.451 ms |
 
 
-
-
+***
+*Esta comparacion hace parte de `Recurentes`*
 ## Comparación de `Tabla de Tiempos de [1.000, 2.000, 4.000, 8.000, 16.000]`
 
 | Datos | Tiempos_ms | Incremento |
@@ -398,7 +399,7 @@ Esto equivale aproximadamente a `59.57 minutos`.
 | Ventas | Factor respecto a 16.000 | Tiempo estimado O(n²) | Tiempo real |
 |---:|---:|---:|---:|
 | 16.000 | 1x | 914.986 ms | 914.986 ms |
-| 100.000 | 6.25x | 35.741,64 ms (35.74 s) | Pendiente |
+| 100.000 | 6.25x | 35.741,64 ms (35.74 s) | 97479.765 ms () |
 | 1.000.000 | 62.5x | 3.574.164,06 ms (59.57 min) | No ejecutado |
 
 ### Conclusión
@@ -408,3 +409,27 @@ Con las nuevas mediciones, el comportamiento del algoritmo es compatible con una
 La estimación para `100.000` ventas es de `35.74 segundos`, por lo que podemos ejecutar la prueba, ya que es inferior al límite de `2 minutos` establecido en el ejercicio.
 
 Para `1.000.000` de ventas, el tiempo estimado es de aproximadamente `59.57 minutos`, por lo que no sería recomendable ejecutar esa prueba para esta actividad.
+
+Al ejecutar la prueba con `100.000` ventas, obtuvimos un tiempo real de `97.479,765 ms`, equivalente a `97.48 segundos`.
+
+Inicialmente, estimamos que la ejecución tardaría aproximadamente `38.39 segundos`, utilizando como referencia las `16.000` ventas y una complejidad O(n²).
+
+Sin embargo, el tiempo real fue aproximadamente `2.54 veces` mayor que el estimado.
+
+Esto demuestra que el tiempo de ejecución aumenta considerablemente al incrementar la cantidad de datos, lo cual es compatible con una complejidad O(n²).
+
+La prueba se completó dentro del límite de `2 minutos`, aunque tardó más de lo esperado.
+
+## Costo oculto de `recurrentes.includes`
+
+La función `clientesRecurrentes` compara todas las parejas posibles de ventas con dos ciclos anidados. Con `n` ventas, los ciclos realizan aproximadamente `n(n - 1) / 2` revisiones, por lo que esta parte del algoritmo tiene complejidad O(n²).
+
+Sin embargo, dentro de esas revisiones existe otra operación: `recurrentes.includes(ventas[i].cliente)`. Este método también recorre un arreglo. En el peor caso, cuando el cliente aún no está registrado, debe revisar hasta todos los elementos de `recurrentes`.
+
+Como `recurrentes` puede crecer hasta tener `n` elementos, cada llamada a `includes` puede tomar O(n). Al tener hasta O(n²) parejas que requieren esta búsqueda, el costo combinado puede llegar a O(n³) en el peor caso.
+
+Este costo oculto hace que, al aumentar los registros, el reporte tarde mucho más de lo que sugiere ver únicamente los dos ciclos principales.
+
+### Conclusión para la gerente
+
+El reporte se vuelve lento porque el sistema compara muchas ventas entre sí y, además, vuelve a recorrer una lista cada vez que encuentra un cliente repetido. Al duplicarse la cantidad de ventas, el trabajo puede crecer varias veces más rápido y no solo al doble. Por eso, con pocos datos parece rápido, pero con muchos datos el tiempo de espera aumenta considerablemente.
