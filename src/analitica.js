@@ -167,6 +167,31 @@ function ventasDelDia(ventas, fecha) {
     return ventas.filter((v) => v.fecha === fecha)
 }
 
+
+function totalCiudadCadena(ventas, ciudad) {
+    return ventas.map(c => ({...c,ciudad: normalizacion(c.ciudad)}))
+    .filter(v => v.ciudad === normalizacion(ciudad))
+    .map(valor => valorVenta(valor))
+    .reduce((acc, v) => acc + v, 0)
+}
+
+
+console.log(`Total de medellín: ${totalCiudadCadena(ventas, "Medellín")}`);
+
+function totalCiudadUnaPasada(ventas, ciudad) {
+    let total = 0
+    for(const v of ventas){
+        if(normalizacion(v.ciudad) === normalizacion(ciudad)){
+            total += valorVenta(v) 
+        }
+    }
+
+    return total
+}
+
+console.log(`total Ciudad una pasada: ${totalCiudadUnaPasada(ventas, "Medellín")}`)
+
+
 module.exports = {
     totalVendido, totalVendidoM,
     unidadesVendidas, unidadesVendidasM,
@@ -177,5 +202,7 @@ module.exports = {
     ventasDelDia,
     ticketPromedio,
     normalizacion,
-    valorVenta
+    valorVenta,
+    totalCiudadCadena,
+    totalCiudadUnaPasada,
 };
