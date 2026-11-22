@@ -10,7 +10,6 @@ const {
 } = require('./instrumentada.js')
 
 const {
-    totalCiudadCadena,
     totalCiudadUnaPasada,
 } = require('./analitica.js')
 
@@ -78,7 +77,6 @@ for (const n of tiempos){
 console.log("=====");
 const v = generarVentas(10000)
 
-console.log(totalCiudadCadena(v, "Medellín"));
 console.log(totalCiudadUnaPasada(v, "Medellín"));
 
 console.log("====");

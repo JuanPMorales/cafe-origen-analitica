@@ -459,3 +459,63 @@ Por otro lado, `totalCiudadUnaPasada()` utiliza un solo ciclo `for...of`, que re
 Por lo tanto, ambas funciones tienen complejidad temporal **O(n)**, aunque `totalCiudadCadena()` realiza más operaciones y crea arreglos intermedios.
 
 La diferencia es que `totalCiudadUnaPasada()` utiliza menos recursos, pero ambas presentan un crecimiento lineal respecto a la cantidad de ventas.
+
+## Punto 6. Clasificación de complejidad espacial
+
+La complejidad espacial representa la memoria adicional que utiliza una función durante su ejecución.
+
+| Archivo | Función | Complejidad espacial | Justificación |
+|---|---|---|---|
+| `analitica.js` | `valorVenta()` | O(1) | Realiza una multiplicación sin crear estructuras adicionales. |
+| `analitica.js` | `totalVendido()` | O(1) | Utiliza únicamente un acumulador. |
+| `analitica.js` | `unidadesVendidas()` | O(1) | Utiliza un contador de unidades. |
+| `analitica.js` | `ventaMayor()` | O(1) | Guarda una referencia a la venta de mayor valor. |
+| `analitica.js` | `ticketPromedio()` | O(1) | Utiliza dos acumuladores. |
+| `analitica.js` | `normalizacion()` | O(1)* | Normaliza una cadena de texto sin crear arreglos. |
+| `analitica.js` | `ventasPorCiudad()` | O(1)* | Utiliza un acumulador sin crear arreglos. |
+| `analitica.js` | `totalVendidoM()` | O(1) | Utiliza `reduce()` con un acumulador numérico. |
+| `analitica.js` | `unidadesVendidasM()` | O(1) | Utiliza `reduce()` sin generar arreglos. |
+| `analitica.js` | `ventasPorCiudadM()` | O(n) | `filter()` crea un arreglo con las ventas que coinciden. |
+| `analitica.js` | `totalPorCiudad()` | O(n) | Crea un objeto con una propiedad por cada ciudad diferente. |
+| `analitica.js` | `unidadesPorProducto()` | O(n) | Crea un objeto con una propiedad por cada producto diferente. |
+| `analitica.js` | `topProductosPorValor()` | O(n) | Crea un objeto y varios arreglos para agrupar, ordenar y seleccionar productos. |
+| `analitica.js` | `ventasDelDia()` | O(n) | `filter()` genera un arreglo nuevo de resultados. |
+| `analitica.js` | `totalCiudadCadena()` | O(n) | Crea tres arreglos intermedios mediante `map()`, `filter()` y `map()`. |
+| `analitica.js` | `totalCiudadUnaPasada()` | O(1)* | Utiliza un acumulador y no genera arreglos intermedios. |
+| `generador.js` | `azar()` | O(1) | Realiza operaciones matemáticas simples. |
+| `generador.js` | `generarVentas()` | O(n) | Crea un arreglo que almacena las ventas generadas. |
+| `instrumentada.js` | `totalVendido()` | O(1) | Utiliza un acumulador y actualiza un contador existente. |
+| `instrumentada.js` | `ventaMayor()` | O(1) | Utiliza una variable para almacenar el mayor valor. |
+| `instrumentada.js` | `totalPorCiudad()` | O(n) | Crea un objeto que almacena los totales por ciudad. |
+| `instrumentada.js` | `primeraVenta()` | O(1) | Accede directamente al primer elemento del arreglo. |
+| `medir.js` | `ciclo()` | O(1) | No crea estructuras adicionales. |
+| `recurrentes.js` | `clientesRecurrentes()` | O(n) | Crea un arreglo que puede crecer con la cantidad de clientes recurrentes. |
+
+### Análisis de las funciones principales
+
+**`totalPorCiudad()` — O(n)**
+
+Utiliza `reduce()` para crear un objeto que almacena el total vendido por cada ciudad. Aunque su memoria depende realmente de la cantidad de ciudades diferentes, en el peor caso puede almacenar una ciudad por cada venta. Por eso se clasifica como O(n).
+
+**`topProductosPorValor()` — O(n)**
+
+Primero crea un objeto con los totales de cada producto. Después, `Object.entries()` genera un arreglo, `[...productos]` crea una copia y `slice()` crea otro arreglo con los primeros productos del ranking.
+
+La memoria depende de la cantidad de productos diferentes. En el peor caso, cada venta podría tener un producto distinto, por lo que su complejidad espacial es O(n).
+
+### Conclusión
+
+- **O(1):** funciones que utilizan memoria adicional constante, como acumuladores, contadores o referencias.
+- **O(n):** funciones que crean arreglos u objetos cuyo tamaño puede crecer proporcionalmente a los datos procesados.
+
+**Nota:** Para esta clasificación se considera que los textos tienen una longitud limitada. Si se analiza la memoria utilizada por las cadenas, `normalizacion()` y las funciones que la llaman pueden requerir espacio adicional proporcional a la longitud del texto.
+
+## Elección de la implementación
+
+Decidí utilizar `totalCiudadUnaPasada()` porque realiza un solo recorrido con `for...of` y no genera arreglos intermedios.
+
+Aunque ambas funciones tienen complejidad temporal O(n), `totalCiudadCadena()` utiliza más memoria debido a los arreglos creados por `map()` y `filter()`.
+
+En cuanto a legibilidad, considero que `totalCiudadUnaPasada()` es fácil de entender porque utiliza un ciclo, una condición y un acumulador.
+
+Por lo tanto, elijo `totalCiudadUnaPasada()` porque ofrece un buen equilibrio entre legibilidad y eficiencia, especialmente cuando trabajamos con grandes cantidades de ventas.
