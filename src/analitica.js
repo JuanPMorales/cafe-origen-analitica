@@ -168,16 +168,16 @@ function ventasDelDia(ventas, fecha) {
 }
 
 
+// totalCiudadCadena hace 4 recorridos por cada metodo y genera 3 arreglos nuevos con .map .filter. El tiempo es de O(n) ya que los recorridos son consecutivos y un espacio de O(n) ya que los arreglos crecen según la cantidad de ventas
 function totalCiudadCadena(ventas, ciudad) {
     return ventas.map(c => ({...c,ciudad: normalizacion(c.ciudad)}))
     .filter(v => v.ciudad === normalizacion(ciudad))
     .map(valor => valorVenta(valor))
     .reduce((acc, v) => acc + v, 0)
 }
-
-
 console.log(`Total de medellín: ${totalCiudadCadena(ventas, "Medellín")}`);
 
+// totalCiudadUnaPasada solo hace un recorrido con el For..of y no genera ningun arreglo nuevo. el tiempo es O(n) ya que recorre las ventas una sola vez y el espacio es O(1) ya que tiene una variable total que no importa cuantas ventas existan siempre devulve un resultado. 
 function totalCiudadUnaPasada(ventas, ciudad) {
     let total = 0
     for(const v of ventas){

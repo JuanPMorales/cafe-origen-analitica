@@ -81,7 +81,6 @@ const v = generarVentas(10000)
 console.log(totalCiudadCadena(v, "Medellín"));
 console.log(totalCiudadUnaPasada(v, "Medellín"));
 
-
 console.log("====");
 console.table(tabla);
 console.table(resultado);

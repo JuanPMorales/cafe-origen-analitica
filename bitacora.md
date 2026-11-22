@@ -433,3 +433,29 @@ Este costo oculto hace que, al aumentar los registros, el reporte tarde mucho m�
 ### Conclusión para la gerente
 
 El reporte se vuelve lento porque el sistema compara muchas ventas entre sí y, además, vuelve a recorrer una lista cada vez que encuentra un cliente repetido. Al duplicarse la cantidad de ventas, el trabajo puede crecer varias veces más rápido y no solo al doble. Por eso, con pocos datos parece rápido, pero con muchos datos el tiempo de espera aumenta considerablemente.
+
+## Complejidad temporal de las funciones
+
+Ambas funciones, `totalCiudadCadena()` y `totalCiudadUnaPasada()`, tienen una complejidad temporal de **O(n)**.
+
+Aunque `totalCiudadCadena()` utiliza cuatro métodos (`map`, `filter`, `map` y `reduce`), estos realizan recorridos consecutivos, no anidados.
+
+Por ejemplo, si tenemos 100 ventas (`n`) y suponemos que cada método recorre las 100 ventas, tendríamos:
+
+```text
+100 + 100 + 100 + 100 = 400 operaciones
+```
+
+Esto se representa como:
+
+**T(n) = 4n**
+
+En notación Big O se eliminan las constantes multiplicativas, por lo que **O(4n) se simplifica a O(n)**.
+
+Por otro lado, `totalCiudadUnaPasada()` utiliza un solo ciclo `for...of`, que recorre las ventas una vez.
+
+**T(n) = n**
+
+Por lo tanto, ambas funciones tienen complejidad temporal **O(n)**, aunque `totalCiudadCadena()` realiza más operaciones y crea arreglos intermedios.
+
+La diferencia es que `totalCiudadUnaPasada()` utiliza menos recursos, pero ambas presentan un crecimiento lineal respecto a la cantidad de ventas.
