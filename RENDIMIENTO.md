@@ -72,30 +72,146 @@ Por último, `topProductosPorValor()` tiene complejidad O(n + u log u), donde `u
 
 Las funciones se ordenan de mayor a menor riesgo al aumentar la cantidad de datos. El criterio combina complejidad temporal, uso de memoria, tiempo medido y proyección a 1.000.000 de ventas.
 
-- **Complejidad temporal:** las funciones cuadráticas o peores presentan mayor riesgo que las lineales o constantes.
-- **Complejidad espacial:** los arreglos y objetos auxiliares que crecen con los datos aumentan el consumo de memoria.
-- **Tiempo medido:** los tiempos altos con 10.000 ventas indican una mayor prioridad de optimización.
-- **Proyección:** el crecimiento estimado determina qué funciones pueden dejar de ser viables con datos grandes.
+## Riesgos
 
-| Posición | Función | Nivel de riesgo | Criterio |
-|---:|---|---|---|
-| 1 | `clientesRecurrentes()` | Crítico | Tiene ciclos anidados y usa `includes()` dentro de las coincidencias. Su complejidad base es O(n²) y puede aproximarse a O(n³) si crece el conjunto de clientes recurrentes. Con 10.000 ventas tardó aproximadamente 460,968 ms y se proyecta a 76,83 minutos con 1.000.000. |
-| 2 | `topProductosPorValor()` | Alto | Agrupa todas las ventas y después ordena los productos con O(n + u log u). El riesgo aumenta si crece la cantidad `u` de productos distintos. |
-| 3 | `ventasPorCiudadM()` | Medio-alto | El recorrido es O(n), pero `filter()` crea un arreglo auxiliar de hasta `n` elementos antes de `reduce()`, por lo que su espacio es O(n). |
-| 4 | `totalCiudadCadena()` | Medio-alto | Realiza varios recorridos y crea arreglos intermedios con `map()` y `filter()`. Aunque el tiempo sigue siendo O(n), ocupa O(n) de memoria temporal. |
-| 5 | `totalPorCiudad()` | Medio | Recorre las ventas una vez, pero conserva un objeto con una entrada por ciudad. La memoria puede crecer hasta O(n) si todas las ciudades son distintas. |
-| 6 | `unidadesPorProducto()` | Medio | Recorre las ventas una vez y acumula un objeto por producto. Puede usar O(n) de memoria si todos los productos son diferentes. |
-| 7 | `ventasDelDia()` | Medio | Recorre todas las ventas y crea un arreglo de coincidencias. Puede usar O(n) de memoria si todas pertenecen a la fecha consultada. |
-| 8 | `ticketPromedio()` | Medio-bajo | Tiene una sola pasada O(n) y conserva únicamente el total y el conteo de ventas, por lo que usa O(1) de espacio. |
-| 9 | `ventasPorCiudad()` | Medio-bajo | Usa un recorrido lineal y una variable acumuladora constante. |
-| 10 | `totalCiudadUnaPasada()` | Medio-bajo | Es lineal con O(1) de memoria y evita los arreglos intermedios de la versión encadenada. |
-| 11 | `totalVendido()` | Bajo | Recorrido lineal simple con una sola variable acumuladora. |
-| 12 | `unidadesVendidas()` | Bajo | Recorrido lineal simple con espacio constante. |
-| 13 | `ventaMayor()` | Bajo | Recorre una vez las ventas y conserva únicamente la venta mayor encontrada. |
-| 14 | `totalVendidoM()` | Bajo | Implementación lineal con `reduce()` y una sola variable acumuladora. |
-| 15 | `unidadesVendidasM()` | Bajo | Implementación lineal con `reduce()` y espacio constante. |
-| 16 | `generarVentas()` | Bajo | Tiene complejidad y memoria lineales porque devuelve un arreglo con `n` objetos nuevos. |
-| 17 | `azar()` | Muy bajo | Es una operación aritmética constante O(1). |
-| 18 | `normalizacion()` | Muy bajo | Su costo depende de la longitud del texto y no de la cantidad de ventas. |
-| 19 | `valorVenta()` | Muy bajo | Multiplica dos valores en una operación constante O(1). |
-| 20 | `primeraVenta()` | Muy bajo | Accede directamente al índice cero y mantiene complejidad temporal y espacial O(1). |
+Las funciones se clasifican de mayor a menor riesgo según su comportamiento al aumentar la cantidad de ventas.
+
+### Criterios de clasificación
+
+- **Complejidad temporal:** las funciones O(n²) o superiores presentan mayor riesgo que las O(n) y O(1).
+- **Complejidad espacial:** las funciones que crean arreglos u objetos proporcionales a los datos pueden consumir más memoria.
+- **Tiempo medido:** se consideran los resultados obtenidos con 10.000 ventas.
+- **Proyección:** se analiza el posible comportamiento de las funciones al trabajar con 1.000.000 de ventas.
+
+### Tabla de riesgos
+
+| Posición | Archivo | Función | Riesgo | Justificación |
+| ---: | --- | --- | --- | --- |
+| 1 | `recurrentes.js` | `clientesRecurrentes()` | Crítico | Utiliza ciclos anidados e `includes()`. Puede alcanzar O(n³) en el peor caso. |
+| 2 | `analitica.js` | `topProductosPorValor()` | Alto | Agrupa ventas y ordena productos. Tiempo O(n + u log u) y espacio O(u). |
+| 3 | `analitica.js` | `totalCiudadCadena()` | Alto | Realiza cuatro etapas de recorrido y crea tres arreglos intermedios. Tiempo y espacio O(n). |
+| 4 | `generador.js` | `generarVentas()` | Medio-alto | Genera un arreglo con `n` objetos nuevos. Tiempo y espacio O(n). |
+| 5 | `analitica.js` | `ventasPorCiudadM()` | Medio-alto | Utiliza `filter()` y crea un arreglo auxiliar de hasta `n` elementos. |
+| 6 | `analitica.js` | `ventasDelDia()` | Medio | Crea un arreglo que puede contener todas las ventas. |
+| 7 | `analitica.js` | `totalPorCiudad()` | Medio | Agrupa ventas en un objeto que crece con las ciudades diferentes. |
+| 8 | `analitica.js` | `unidadesPorProducto()` | Medio | Agrupa unidades en un objeto que crece con los productos diferentes. |
+| 9 | `instrumentada.js` | `totalPorCiudad()` | Medio | Agrupa las ventas por ciudad y registra operaciones. |
+| 10 | `analitica.js` | `ticketPromedio()` | Medio-bajo | Realiza un recorrido O(n) con memoria O(1). |
+| 11 | `analitica.js` | `ventasPorCiudad()` | Medio-bajo | Recorre las ventas una vez y utiliza un acumulador. |
+| 12 | `analitica.js` | `totalCiudadUnaPasada()` | Medio-bajo | Recorre las ventas una vez sin crear arreglos intermedios. |
+| 13 | `analitica.js` | `totalVendido()` | Bajo | Recorrido O(n) con un acumulador. |
+| 14 | `analitica.js` | `unidadesVendidas()` | Bajo | Recorrido O(n) con memoria constante. |
+| 15 | `analitica.js` | `ventaMayor()` | Bajo | Recorre las ventas y conserva una referencia a la venta mayor. |
+| 16 | `analitica.js` | `totalVendidoM()` | Bajo | Utiliza `reduce()` con un acumulador numérico. |
+| 17 | `analitica.js` | `unidadesVendidasM()` | Bajo | Utiliza `reduce()` sin generar arreglos. |
+| 18 | `instrumentada.js` | `totalVendido()` | Bajo | Recorre las ventas y actualiza un contador existente. |
+| 19 | `instrumentada.js` | `ventaMayor()` | Bajo | Recorre las ventas y registra las operaciones. |
+| 20 | `medir.js` | `ciclo()` | Bajo | Ejecuta `n` iteraciones sin crear estructuras adicionales. |
+| 21 | `analitica.js` | `normalizacion()` | Muy bajo | Su costo depende de la longitud del texto. |
+| 22 | `generador.js` | `azar()` | Muy bajo | Realiza operaciones matemáticas constantes. |
+| 23 | `analitica.js` | `valorVenta()` | Muy bajo | Realiza una multiplicación. Tiempo y espacio O(1). |
+| 24 | `instrumentada.js` | `primeraVenta()` | Muy bajo | Accede directamente al primer elemento. Tiempo y espacio O(1). |
+
+### Conclusión del análisis
+
+La función de mayor riesgo es `clientesRecurrentes()`, porque compara ventas mediante ciclos anidados y utiliza `includes()` para verificar si un cliente ya fue registrado.
+
+Con 10.000 ventas, su tiempo medido fue aproximadamente **460,968 ms**. Una proyección basada únicamente en crecimiento cuadrático da aproximadamente **76,83 minutos** para 1.000.000 de ventas. Sin embargo, el tiempo podría ser mayor si también aumenta la cantidad de clientes recurrentes distintos.
+
+Las funciones O(n) presentan un crecimiento más controlado. Entre ellas, `totalCiudadCadena()` utiliza más memoria que `totalCiudadUnaPasada()` porque genera arreglos intermedios.
+
+El orden de las funciones con complejidades similares es aproximado y puede variar según los datos utilizados.
+
+---
+
+## Plan de optimización
+
+### Función seleccionada: `clientesRecurrentes()`
+
+**Problema identificado**
+
+La función utiliza dos ciclos anidados para comparar cada venta con las ventas posteriores y determinar si un cliente aparece más de una vez.
+
+Además, cuando encuentra una coincidencia, utiliza `includes()` para comprobar si el cliente ya está almacenado en el arreglo `recurrentes`.
+
+Esto genera trabajo repetitivo y puede afectar considerablemente el rendimiento cuando aumenta la cantidad de ventas.
+
+### ¿Qué trabajo se repite?
+
+1. Se compara el mismo cliente con múltiples ventas para buscar coincidencias.
+2. Se vuelve a recorrer parte del arreglo de ventas para comprobar si un cliente aparece nuevamente.
+3. Se utiliza `includes()` para buscar repetidamente si un cliente ya está registrado como recurrente.
+
+### ¿Qué información se podría guardar?
+
+Se podría utilizar una estructura `Map` o `Set` para almacenar información de los clientes mientras se recorren las ventas.
+
+Por ejemplo:
+
+- Un `Set` para guardar los clientes que ya aparecieron.
+- Otro `Set` para identificar los clientes que aparecen más de una vez.
+
+De esta manera, no sería necesario comparar cada venta con todas las demás ni buscar repetidamente en el arreglo de resultados.
+
+### Mejora propuesta
+
+La idea consiste en recorrer las ventas una sola vez y consultar si el cliente ya fue registrado.
+
+Si aparece por primera vez, se guarda su identificador. Si vuelve a aparecer, se marca como recurrente.
+
+Esto permitiría reducir la complejidad temporal de O(n²) o peor a **O(n) en promedio**, utilizando operaciones de búsqueda e inserción eficientes en `Set`.
+
+La complejidad espacial aumentaría a O(c), donde `c` representa la cantidad de clientes diferentes, debido a la información almacenada.
+
+### Beneficios esperados
+
+- Reducir las comparaciones repetidas.
+- Evitar los ciclos anidados.
+- Mejorar el tiempo de ejecución con grandes cantidades de ventas.
+- Mantener un registro eficiente de los clientes recurrentes.
+- Facilitar el mantenimiento y la comprensión del algoritmo.
+
+**Estado:** optimización propuesta, pendiente de implementación y pruebas.
+
+---
+
+## Revisión por un compañero
+
+### Solicitud de revisión
+
+Se solicitó a un compañero revisar el informe de complejidad algorítmica, especialmente la clasificación de riesgos, las proyecciones de rendimiento y la propuesta de optimización de `clientesRecurrentes()`.
+
+### Registro de revisión
+
+**Compañero que realizó la revisión:** \[Juan Sebastian Ortega Mesa\]
+
+**Fecha:** \[23/11/2026\]
+
+**Observación recibida:**
+
+\[las estadisticas de rendimiento del BIG O "O(n), N(LOG)N y O() " y sus derivados concuerdan con el nivel de crecimiento de la funcion, siendo catalogados adecuadamente los casos de niveles de riesgos de las funciones, la solucion propuesta  al problema de clientesRecurrentes me parece acertada y permite optimizar el codigo de manera adecuada".\]
+
+**Mi respuesta a la observación:**
+
+\[Estoy de acuerdo con mi compañero a la hora de revisar mi bitacora de rendimiento, tal vez podria hacer un cambio añadiendo el codigo optimizado de clientesRecurrentes. Pero estoy de acuerdo con todo lo que me ha dicho mi compañero.\]
+
+**Cambio realizado:**
+
+```
+function clientesRecurrentes(ventas) {
+    const clientesVistos = new Set();
+    const recurrentes = new Set();
+
+    for (const venta of ventas) {
+        const cliente = venta.cliente;
+
+        if (clientesVistos.has(cliente)) { //.has comprueba si el cliente ya apareció.
+            recurrentes.add(cliente);
+        } else {
+            clientesVistos.add(cliente);
+        }
+    }
+
+    return [...recurrentes];
+}
+```
