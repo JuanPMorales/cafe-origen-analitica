@@ -193,7 +193,7 @@ Se solicitó a un compañero revisar el informe de complejidad algorítmica, esp
 
 **Mi respuesta a la observación:**
 
-\[Estoy de acuerdo con mi compañero a la hora de revisar mi bitacora de rendimiento, tal vez podria hacer un cambio añadiendo el codigo optimizado de clientesRecurrentes. Pero estoy de acuerdo con todo lo que me ha dicho mi compañero.\]
+\[Estoy de acuerdo con mi compañero a la hora de revisar mi bitacora de rendimiento, tal vez podria hacer un cambio añadiendo el codigo optimizado de clientesRecurrentes. Pero estoy de acuerdo con todo.\]
 
 **Cambio realizado:**
 
