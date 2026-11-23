@@ -519,3 +519,160 @@ Aunque ambas funciones tienen complejidad temporal O(n), `totalCiudadCadena()` u
 En cuanto a legibilidad, considero que `totalCiudadUnaPasada()` es fácil de entender porque utiliza un ciclo, una condición y un acumulador.
 
 Por lo tanto, elijo `totalCiudadUnaPasada()` porque ofrece un buen equilibrio entre legibilidad y eficiencia, especialmente cuando trabajamos con grandes cantidades de ventas.
+
+
+# Optimización de clientes recurrentes
+
+## 1. Entender el problema
+
+El marketplace necesita que los reportes del proveedor respondan en menos de un segundo cuando se procesan 100.000 ventas.
+
+La función `clientesRecurrentes()` debe identificar los clientes que han realizado dos o más compras, evitando repetir sus identificadores en el resultado.
+
+**Entradas:**
+- `ventas`: arreglo de objetos que contienen información de las ventas.
+- Cada venta contiene la propiedad `cliente`, que identifica al comprador.
+
+**Salida:**
+- Un arreglo con los identificadores de los clientes que aparecen dos o más veces.
+
+**Restricciones:**
+- No repetir clientes en el resultado.
+- No modificar el arreglo original.
+- Funcionar con arreglos vacíos y clientes que aparecen una sola vez.
+- Evitar recorridos innecesarios.
+- Cumplir el objetivo de rendimiento de menos de un segundo para 100.000 ventas.
+
+## Ejemplos y casos borde
+
+### Ejemplo 1. Clientes recurrentes
+
+```js
+const ventas = [
+    { cliente: "C001" },
+    { cliente: "C002" },
+    { cliente: "C001" },
+    { cliente: "C003" },
+    { cliente: "C002" }
+];
+```
+
+**Resultado esperado:**
+
+```js
+["C001", "C002"]
+```
+
+Los clientes `C001` y `C002` aparecen dos veces.
+
+### Ejemplo 2. Sin clientes recurrentes
+
+```js
+const ventas = [
+    { cliente: "C001" },
+    { cliente: "C002" },
+    { cliente: "C003" }
+];
+```
+
+**Resultado esperado:**
+
+```js
+[]
+```
+
+Ningún cliente aparece más de una vez.
+
+### Ejemplo 3. Arreglo vacío
+
+```js
+const ventas = [];
+```
+
+**Resultado esperado:**
+
+```js
+[]
+```
+
+No existen ventas para analizar.
+
+### Ejemplo 4. Un cliente repetido varias veces
+
+```js
+const ventas = [
+    { cliente: "C001" },
+    { cliente: "C001" },
+    { cliente: "C001" }
+];
+```
+
+**Resultado esperado:**
+
+```js
+["C001"]
+```
+
+Aunque el cliente aparece tres veces, solo debe incluirse una vez en el resultado.
+
+## 3. Fuerza bruta
+
+La implementación original utiliza dos ciclos anidados para comparar las ventas.
+
+```js
+function clientesRecurrentes(ventas) {
+    const recurrentes = [];
+
+    for (let i = 0; i < ventas.length; i++) {
+        for (let j = i + 1; j < ventas.length; j++) {
+            if (
+                ventas[i].cliente === ventas[j].cliente &&
+                !recurrentes.includes(ventas[i].cliente)
+            ) {
+                recurrentes.push(ventas[i].cliente);
+            }
+        }
+    }
+
+    return recurrentes;
+}
+```
+
+**Complejidad temporal:**
+
+Los dos ciclos anidados realizan aproximadamente `n(n - 1) / 2` comparaciones, lo que representa O(n²).
+
+Además, `includes()` realiza una búsqueda lineal sobre el arreglo de clientes recurrentes, por lo que el peor caso puede alcanzar O(n³).
+
+**Complejidad espacial:** O(c), donde `c` representa la cantidad de clientes recurrentes diferentes almacenados.
+
+**Problema principal:** se realizan comparaciones y búsquedas repetidas que aumentan considerablemente el tiempo de ejecución.
+
+## 4. Optimizar
+
+La estrategia consiste en reemplazar los ciclos anidados y las búsquedas con `includes()` por dos estructuras `Set`.
+
+- `clientesVistos`: almacena los clientes encontrados por primera vez.
+- `recurrentes`: almacena los clientes que aparecen dos o más veces.
+
+Se utiliza un único ciclo `for...of` para recorrer las ventas.
+
+### Pseudocódigo
+
+```text
+Crear conjunto clientesVistos
+Crear conjunto recurrentes
+
+Para cada venta:
+    Obtener identificador del cliente
+
+    Si el cliente ya está en clientesVistos:
+        Agregar cliente a recurrentes
+    Si no:
+        Agregar cliente a clientesVistos
+
+Convertir recurrentes en arreglo
+Devolver resultado
+```
+
+**Beneficio esperado:** reducir la complejidad temporal a O(n) en promedio, eliminando las comparaciones anidadas.
