@@ -4,17 +4,17 @@ const {
 
 const ventas = require('./datos.js')
 
-function clientesRecurrentes(ventas){
-    const recurrentes = [];
-    for (let i = 0; i < ventas.length; i++) {
-        for (let j = i + 1; j < ventas.length; j++) {
-            if (ventas[i].cliente === ventas[j].cliente && !recurrentes.includes(ventas[i].cliente)) {
-                recurrentes.push(ventas[i].cliente);
-            }
-        }
-    }
-    return recurrentes;
-}
+// function clientesRecurrentes(ventas){
+//     const recurrentes = [];
+//     for (let i = 0; i < ventas.length; i++) {
+//         for (let j = i + 1; j < ventas.length; j++) {
+//             if (ventas[i].cliente === ventas[j].cliente && !recurrentes.includes(ventas[i].cliente)) {
+//                 recurrentes.push(ventas[i].cliente);
+//             }
+//         }
+//     }
+//     return recurrentes.sort();
+// }
 
 function clientesRecurrentesSet(ventas){
     const clientesVistos = new Set()
@@ -27,7 +27,7 @@ function clientesRecurrentesSet(ventas){
             clientesVistos.add(venta.cliente)
         }
     }
-    return [...recurrentes];
+    return [...recurrentes].sort();
 }
 
 function comprasPorCliente(ventas) {
@@ -45,12 +45,12 @@ const ventaGenerada = generarVentas(5000)
 console.table(ventas);
 
 console.log("Ventas con datos originales");
-console.log("Original", clientesRecurrentes(ventas));
+// console.log("Original", clientesRecurrentes(ventas));
 console.log("clientes recurrentes set: ",clientesRecurrentesSet(ventas));
 console.log("compras por clientes",comprasPorCliente(ventas));
 
 console.log("Ventas con 5.000 datos");
-console.log("Original", clientesRecurrentes(ventaGenerada));
+// console.log("Original", clientesRecurrentes(ventaGenerada));
 console.log("clientes recurrentes set: ",clientesRecurrentesSet(ventaGenerada));
 console.log("compras por clientes",comprasPorCliente(ventaGenerada));
 
@@ -63,13 +63,13 @@ for(const v of datos){
     let tiempo = "Sin  procesar"
 
 
-    if(v <= 10000){
-        const inicio = performance.now();
-        clientesRecurrentes(ventas)
-        const fin = performance.now();
+    // if(v <= 10000){
+    //     const inicio = performance.now();
+    //     clientesRecurrentes(ventas)
+    //     const fin = performance.now();
 
-        tiempo = (fin - inicio).toFixed(3)
-    }
+    //     tiempo = (fin - inicio).toFixed(3)
+    // }
 
     const inicioSet = performance.now();
     let resultadoSet = clientesRecurrentesSet(ventas)
@@ -81,7 +81,7 @@ for(const v of datos){
 
     tabla.push({
         datos: v,
-        tiempo: tiempo,
+        // tiempo: tiempo,
         tiempo_Set: (finSet - inicioSet).toFixed(3),
         tiempo_Map: (finMap - inicioMap).toFixed(3),
         clientesRecurrentes: resultadoSet.length,

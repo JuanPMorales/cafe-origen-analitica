@@ -681,13 +681,22 @@ Devolver resultado
 
 Se optimizó `clientesRecurrentes()` utilizando `Set` y `Map`, reduciendo la complejidad temporal de O(n²) a O(n) en promedio.
 
-**Resultados con 10.000 ventas:**
-- Original: 360,456 ms.
-- Set: 0,744 ms (484 veces más rápido).
-- Map: 0,565 ms (638 veces más rápido).
+**Medición de rendimiento:**
 
-Con 100.000 ventas, ambas soluciones procesaron los datos en menos de 20 ms en promedio.
+| datos | tiempo_Set (ms) | tiempo_Map (ms) | clientesRecurrentes | clientesUnicos |
+|---:|---:|---:|---:|---:|
+| 1.000 | 0,188 | 0,062 | 269 | 320 |
+| 10.000 | 1,366 | 0,842 | 2.666 | 3.156 |
+| 100.000 | 40,145 | 14,058 | 26.632 | 31.688 |
 
-**Tiempo vs. memoria:** las nuevas soluciones utilizan memoria adicional O(c) para almacenar clientes y evitar comparaciones repetidas.
+**Análisis de resultados:**
 
-**Conclusión:** se utiliza más memoria para obtener mayor velocidad. `Set` es ideal para identificar clientes recurrentes y `Map` para contar sus compras. Ambas cumplen el requisito de responder en menos de un segundo.
+- Con 1.000 ventas, `Map` fue aproximadamente 3 veces más rápido que `Set`.
+- Con 10.000 ventas, `Map` fue aproximadamente 1,62 veces más rápido que `Set`.
+- Con 100.000 ventas, `Map` fue aproximadamente 2,86 veces más rápido que `Set`.
+- Al aumentar las ventas de 1.000 a 100.000, el tiempo de `Set` aumentó aproximadamente 213 veces y el de `Map` aproximadamente 227 veces.
+- Los clientes recurrentes representan alrededor del 84 % de los clientes únicos en todas las pruebas.
+
+**Intercambio entre tiempo y memoria:**
+
+Las nuevas soluciones utilizan memoria adicional O(c) para almacenar clientes y evitar comparaciones repetidas. `Set` es adecuado para identificar si un cliente ya apareció, mientras que `Map` permite contar sus compras y ofrece mejores tiempos en las mediciones realizadas.
