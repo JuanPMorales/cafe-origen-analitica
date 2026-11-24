@@ -175,3 +175,69 @@ function primerClienteUnico(ventas) {
 }
 
 console.log(primerClienteUnico(ventas));
+
+// Mini reto 11 de algoritmia
+
+const ventasDiarias = [
+    320, 410, 280, 390, 510, 620, 700, 300, 290, 450,
+    480, 530, 610, 680, 350, 330, 420, 470, 560, 640,
+    710, 380, 360, 440, 500, 590, 650, 720, 400, 370
+];
+
+// Mejor semana de la peor funcion
+function mejorSemanaBruta(dias, k) {
+    if (k <= 0 || k > dias.length) return null;
+
+    let maximo = -Infinity;
+    let inicio = 0;
+
+    for (let i = 0; i <= dias.length - k; i++) {
+        let total = 0;
+
+        for (let j = i; j < i + k; j++) {
+            total += dias[j];
+        }
+
+        if (total > maximo) {
+            maximo = total;
+            inicio = i;
+        }
+    }
+
+    return {
+        total: maximo,
+        diaInicio: inicio + 1
+    };
+}
+
+console.log(mejorSemanaBruta(ventasDiarias, 7));
+
+// Mejor semana con ventas deslizante
+function mejorSemana(dias, k) {
+    if (k <= 0 || k > dias.length) return null;
+
+    let total = 0;
+
+    for (let i = 0; i < k; i++) {
+        total += dias[i];
+    }
+
+    let maximo = total;
+    let inicio = 0;
+
+    for (let i = k; i < dias.length; i++) {
+        total += dias[i] - dias[i - k];
+
+        if (total > maximo) {
+            maximo = total;
+            inicio = i - k + 1;
+        }
+    }
+
+    return {
+        total: maximo,
+        diaInicio: inicio + 1
+    };
+}
+
+console.log(mejorSemana(ventasDiarias, 7));

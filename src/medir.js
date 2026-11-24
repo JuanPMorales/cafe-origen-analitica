@@ -57,7 +57,7 @@ const tabla = []
 
 for (const n of tiempos){
 
-    console.time(`tiempo de: ${n}: `)
+    console.time(`tiempo de: ${n}`)
     const inicio = performance.now();
 
     let v = generarVentas(n)
@@ -65,7 +65,7 @@ for (const n of tiempos){
     ciclo(v)
 
     const fin = performance.now();
-    console.timeEnd(`tiempo de: ${n}: `)
+    console.timeEnd(`tiempo de: ${n}`)
 
 
     tabla.push({
