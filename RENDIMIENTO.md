@@ -28,6 +28,13 @@ Mediciones realizadas con 10.000 ventas generadas aleatoriamente. Los tiempos co
 | `primeraVenta(ventas, contador)` | Devuelve el primer registro y registra una operacion. | `O(1)` | `O(1)` | Accede directamente al indice cero sin recorrer el arreglo. | 1 operacion; aproximadamente `0.092 ms`. |
 | `ciclo(n)` | Ejecuta un ciclo vacio `n` veces. | `O(n)` | `O(1)` | El numero de iteraciones crece linealmente con `n`; el cuerpo no reserva memoria. | 10.000 iteraciones esperadas. |
 | `clientesRecurrentes(ventas)` | Encuentra clientes que aparecen en mas de una venta. | `O(n^2)` medio/estructura principal; peor caso `O(n^3)` con `includes` | `O(r)` | Tiene dos ciclos anidados sobre pares de ventas. `includes` puede recorrer hasta `r` clientes recurrentes en cada coincidencia, por lo que el peor caso puede alcanzar `O(n^3)`. | Aproximadamente `460.968 ms`; encontro 2.682 clientes recurrentes con 10.000 ventas. |
+| `clientesRecurrentesSet(ventas)` | Identifica clientes con más de una compra. | `O(n + r log r)` promedio | `O(c + r)` | Recorre las ventas utilizando dos conjuntos `Set` y ordena los `r` clientes recurrentes. | 10.000 ventas recorridas más el ordenamiento. |
+| `comprasPorCliente(ventas)` | Cuenta las compras de cada cliente. | `O(n)` promedio | `O(c)` | Recorre las ventas una vez y almacena los conteos en un `Map`. | 10.000 iteraciones. |
+| `comboRegalo(catalogo, valor)` | Busca dos productos que sumen exactamente el valor solicitado. | `O(m)` promedio | `O(m)` | Utiliza un `Map` para buscar el precio complementario sin ciclos anidados. | Hasta 8 productos recorridos en el catálogo actual. |
+| `productoEstrellaPorCiudad(ventas)` | Identifica el producto más vendido por frecuencia en cada ciudad. | `O(n)` promedio | `O(n)` | Utiliza mapas anidados para contar productos por ciudad y seleccionar el más frecuente. | 10.000 ventas recorridas más la selección de productos. |
+| `primerClienteUnico(ventas)` | Encuentra el primer cliente con una sola compra. | `O(n)` promedio | `O(c)` | Realiza un recorrido para contar compras y otro para encontrar el primer cliente único. | Hasta 20.000 iteraciones. |
+| `mejorSemana(dias, k)` | Encuentra el período consecutivo con mayor total vendido. | `O(n)` | `O(1)` | Utiliza una ventana deslizante que suma el nuevo día y resta el anterior. | 30 días procesados en el reporte actual. |
+| `parMasCercano(catalogo, presupuesto)` | Encuentra el par de productos más cercano al presupuesto sin superarlo. | `O(m log m)` | `O(m)` | Ordena una copia del catálogo y utiliza dos punteros para encontrar el mejor par. | Ordenamiento de 8 productos y hasta 7 iteraciones por búsqueda. |
 
 ## Proyección
 
