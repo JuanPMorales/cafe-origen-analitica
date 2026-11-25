@@ -748,3 +748,27 @@ el costo de parMasCercano() incluye:
 - Ordenar los precios: O(n log n).
 - Recorrer con dos punteros: O(n).
 Complejidad temporal final: O(n log n).
+
+# Resumen de lo que construiste en cada MiniReto de la semana
+
+Durante la semana aprendi varios metodos y como aplicarlos al proyecto. 
+
+## dia 1 
+
+### minireto 1 - 4 
+
+Se inicializo el repositorio de cafe origen analitica, donde se crearon los archivos: 
+
+1. datos.js 
+2. analitica.js 
+3. explorar.js 
+4. bitácora.md 
+5. README.md.
+
+En `datos.js` almacenamos 12 ventas que es un arreglo de objetos donde lo podemos exportar con module.exports, para utilizarlo con otros archivos. 
+
+## dia 2
+### minireto 5 - 8
+
+
+
