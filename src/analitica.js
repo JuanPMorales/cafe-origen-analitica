@@ -1,15 +1,7 @@
 const ventas = require('./datos');
 
+// Dia 1 - Minireto 2 
 const valorVenta = (venta) => venta.cantidad * venta.precio;
-
-// function valorVenta(ventas){
-//     let totalVenta = 0 
-//     for(const v of ventas){
-//         totalVenta += v.cantidad * v.precio
-//     }
-// 
-//     return totalVenta
-// } 
 
 function totalVendido(ventas) {
     let total = 0
@@ -20,27 +12,24 @@ function totalVendido(ventas) {
     return total;
 }
 
-
 function unidadesVendidas(ventas){
     let totalUnidades = 0;
     for(const v of ventas){
-        if (v.cantidad > 0) {
             totalUnidades += v.cantidad;
-        }
     }
-
     return totalUnidades;
 }
 
 function ventaMayor(ventas){
-    if (ventas.length === 0){
-        return null
-    }
+    let mayor = null
+    let montoMayor = 0
 
-    let mayor = ventas[0]
     for (const v of ventas){
-        if(valorVenta(v) > valorVenta(mayor))
+        const monto = valorVenta(v)
+        if(monto > montoMayor){
             mayor = v
+            montoMayor = monto
+        }
     } 
 
     return mayor
@@ -71,9 +60,10 @@ const normalizacion = (texto) => texto.trim().toLowerCase()
 
 function ventasPorCiudad(ventas, ciudad) {
     let total = 0
+    const ciudadNormalizada = normalizacion(ciudad)
 
     for(const v of ventas){
-        if(normalizacion(v.ciudad) === normalizacion(ciudad)){
+        if(normalizacion(v.ciudad) === ciudadNormalizada){
             total += valorVenta(v)
         }
     }
@@ -135,7 +125,7 @@ function totalPorCiudad(ventas){
     }, {});
 }
 
-console.log("Total por Ciudad",totalPorCiudad(ventas));
+// console.log("Total por Ciudad",totalPorCiudad(ventas));
 
 function unidadesPorProducto(ventas) {
     return ventas.reduce((acc, v) => {

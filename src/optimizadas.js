@@ -297,3 +297,14 @@ for (const presupuesto of presupuestos) {
     console.log("Presupuesto:", presupuesto);
     console.table(parMasCercano(catalogo, presupuesto));
 }
+
+
+module.exports = {
+    clientesRecurrentesSet,
+    comprasPorCliente,
+    comboRegalo,
+    productoEstrellaPorCiudad,
+    primerClienteUnico, 
+    mejorSemana,
+    parMasCercano
+}

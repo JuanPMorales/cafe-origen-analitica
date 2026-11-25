@@ -25,14 +25,6 @@ de café y accesorios. Cada objeto representa una venta.
 
 ## Plan en pseudocódigo de cada indicador
 
-| Qué recorres | Qué condición aplicas | Qué acumulas | Qué valor inicias |
-|---|---|---|---|
-| Todas las ventas. | Calcular `cantidad * precio`. | El valor de cada venta en `total`. | `total = 0`. |
-| Todas las ventas. | Si `cantidad > 0`, sumar la cantidad. | Las unidades en `totalUnidades`. | `totalUnidades = 0`. |
-| Todas las ventas. | Si el valor de la venta es mayor que el valor de la venta guardada, reemplazarla. | La venta de mayor valor. | La primera venta; si el arreglo está vacío, `null`. |
-| Todas las ventas. | Si `cantidad > 0`, sumar el valor y aumentar `cantidadVentas`. | `total` y `cantidadVentas`. | Ambos empiezan en `0`; si no hay compras, el promedio es `0`. |
-| Todas las ventas. | Comparar las ciudades normalizadas. | El valor de las ventas que coinciden. | `total = 0`. |
-
 ### Pseudocódigo
 
 ```text
@@ -45,7 +37,6 @@ función totalVendido(ventas):
 función unidadesVendidas(ventas):
     totalUnidades = 0
     para cada venta en ventas:
-        si venta.cantidad > 0:
             totalUnidades = totalUnidades + venta.cantidad
     devolver totalUnidades
 
@@ -751,3 +742,9 @@ existía una combinación válida.
 
 El costo de parMasCercano() incluye ordenar y copiar
 el catálogo. El recorrido de los dos punteros es O(n).
+
+el costo de parMasCercano() incluye:
+- Copiar el catálogo: O(n).
+- Ordenar los precios: O(n log n).
+- Recorrer con dos punteros: O(n).
+Complejidad temporal final: O(n log n).
