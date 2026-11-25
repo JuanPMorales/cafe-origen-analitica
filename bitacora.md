@@ -770,5 +770,11 @@ En `datos.js` almacenamos 12 ventas que es un arreglo de objetos donde lo podemo
 ## dia 2
 ### minireto 5 - 8
 
+En este día aprendi a como crear un generador de ventas y como contar cada operacion que hace cuando crecen los tamaños de datos. Tambien a como se utiliza el Big O, y que este es una forma de analizar como se comporta nuestras funciones cuando la cantidad de datos va creciendo, al igual que hacer mediciones practicas con `console.time/console.timeEnd` para registrar los tiempos de con distintos volumenes. 
 
+ver cómo un algoritmo con dos bucles anidados y includes se vuelve muy lento y cómo se expresa su crecimiento cuadrático.
 
+## Dia 3
+### Minireto 9 - 12 
+
+Este día prendi a como identificar trabajo que sea repetitivo y como sustituir ciclos anidados por una estructura mas adecuada, al igual que utilizar `Set()` y `Map()` para mejorar la complejidad de busqueda y conteos e implementar y comparar algoritmos de fuerza bruta con soluciones optimizadas.
