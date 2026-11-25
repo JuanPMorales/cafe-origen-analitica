@@ -241,3 +241,59 @@ function mejorSemana(dias, k) {
 }
 
 console.log(mejorSemana(ventasDiarias, 7));
+
+const dias = generarVentas(100000).map(v => v.cantidad * v.precio);
+
+const inicioBruta = performance.now();
+const resultadoBruta = mejorSemanaBruta(dias, 7);
+const tiempoBruta = performance.now() - inicioBruta;
+
+const inicioOptimizada = performance.now();
+const resultadoOptimizada = mejorSemana(dias, 7);
+const tiempoOptimizada = performance.now() - inicioOptimizada;
+
+console.table([
+    {
+        metodo: "Fuerza bruta",
+        ...resultadoBruta,
+        tiempo: tiempoBruta.toFixed(3) + " ms"
+    },
+    {
+        metodo: "Ventana deslizante",
+        ...resultadoOptimizada,
+        tiempo: tiempoOptimizada.toFixed(3) + " ms"
+    }
+]);
+
+function parMasCercano(precios, presupuesto) {
+    const ordenados = [...precios].sort((a, b) => a.precio - b.precio);
+
+    let i = 0;
+    let j = ordenados.length - 1;
+    let mejorSuma = 0;
+    let mejorPar = null;
+
+    while (i < j) {
+        const suma = ordenados[i].precio + ordenados[j].precio;
+
+        if (suma > presupuesto) {
+            j--;
+        } else {
+            if (suma > mejorSuma) {
+                mejorSuma = suma;
+                mejorPar = [ordenados[i], ordenados[j]];
+            }
+
+            i++;
+        }
+    }
+
+    return mejorPar;
+}
+
+const presupuestos = [100000, 140000, 40000];
+
+for (const presupuesto of presupuestos) {
+    console.log("Presupuesto:", presupuesto);
+    console.table(parMasCercano(catalogo, presupuesto));
+}

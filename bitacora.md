@@ -700,3 +700,54 @@ Se optimizó `clientesRecurrentes()` utilizando `Set` y `Map`, reduciendo la com
 **Intercambio entre tiempo y memoria:**
 
 Las nuevas soluciones utilizan memoria adicional O(c) para almacenar clientes y evitar comparaciones repetidas. `Set` es adecuado para identificar si un cliente ya apareció, mientras que `Map` permite contar sus compras y ofrece mejores tiempos en las mediciones realizadas.
+
+### Traza de ventana deslizante (k = 7)
+
+| Ventana | Días | Sale | Entra | Total |
+|---|---|---:|---:|---:|
+| 1 | 1 al 7 | — | — | 3.230 |
+| 2 | 2 al 8 | 320 | 300 | 3.210 |
+| 3 | 3 al 9 | 410 | 290 | 3.090 |
+
+**Representación:**
+
+- V1: [320, 410, 280, 390, 510, 620, 700] → 3.230
+- V2: [410, 280, 390, 510, 620, 700, 300] → 3.210
+- V3: [280, 390, 510, 620, 700, 300, 290] → 3.090
+
+En cada desplazamiento se resta el día que sale y se suma
+el que entra, evitando calcular nuevamente toda la ventana.
+
+### Comparación con 100.000 días
+
+| Método | Total | Día de inicio | Tiempo |
+|---|---:|---:|---:|
+| Fuerza bruta | 3.205.000 | 81546 | 1.503 ms |
+| Ventana deslizante | 3.205.000 | 81546 | 0.462 ms |
+
+Ambas funciones obtuvieron el mismo resultado.
+La ventana deslizante fue aproximadamente 3,25 veces
+más rápida, reduciendo el tiempo de ejecución un 69,3 %.
+
+### Pruebas de presupuestos
+
+| Presupuesto | Combinación | Total | Sobrante |
+|---:|---|---:|---:|
+| $100.000 | Filtros + Origen Huila 1 kg | $97.000 | $3.000 |
+| $140.000 | Origen Sierra + Prensa francesa | $140.000 | $0 |
+| $40.000 | Sin solución | null | — |
+
+La técnica de dos punteros encontró la mejor combinación
+sin superar el presupuesto y devolvió null cuando no
+existía una combinación válida.
+
+### Complejidades
+
+| Función | Temporal | Espacial |
+|---|---|---|
+| mejorSemanaBruta() | O(n × k) | O(1) |
+| mejorSemana() | O(n) | O(1) |
+| parMasCercano() | O(n log n) | O(n) |
+
+El costo de parMasCercano() incluye ordenar y copiar
+el catálogo. El recorrido de los dos punteros es O(n).
