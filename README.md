@@ -1,56 +1,78 @@
-# Café Origen – Motor de Analítica de Ventas
+# Café Origen — Analítica de ventas
 
-## Descripción del proyecto
+## Descripción
 
-Café Origen es una tostadora de café de especialidad ubicada en Medellín que vende sus productos en tiendas físicas, ferias y mediante pedidos en línea a diferentes ciudades de Colombia.
+Café Origen es un proyecto de analítica para una tostadora de café de especialidad ubicada en Medellín. El motor procesa registros de ventas para generar indicadores y apoyar decisiones sobre ciudades, productos, clientes y períodos de venta.
 
-Este proyecto desarrolla un motor de analítica de ventas utilizando **JavaScript y Node.js**, con el objetivo de analizar los registros de ventas y obtener información útil para la toma de decisiones.
+Está desarrollado en JavaScript para Node.js y utiliza módulos CommonJS. Los datos de ejemplo están incluidos en el proyecto; no se requieren paquetes externos.
 
-El motor permite consultar las ventas por ciudad, identificar los productos más vendidos y calcular indicadores como el total vendido y el ticket promedio.
+## Cómo ejecutarlo
 
-## Tecnologías utilizadas
-
-- JavaScript
-- Node.js
-- CommonJS (`require` y `module.exports`)
-
-## Cómo ejecutar el proyecto
-
-1. Tener instalado Node.js.
-2. Abrir el proyecto en Visual Studio Code.
-3. Abrir la terminal en la carpeta principal del proyecto.
-4. Ejecutar el siguiente comando:
+Se requiere tener Node.js instalado. Desde la carpeta raíz del proyecto, ejecuta:
 
 ```bash
 node src/reporte.js
 ```
 
-Este comando muestra en la consola el reporte de ventas.
+El comando muestra en la terminal el reporte de ventas con los datos incluidos y una comparación de rendimiento entre las versiones del reporte para conjuntos de ventas generados.
 
-Para ejecutar las pruebas de las funciones:
+Para ejecutar las verificaciones disponibles:
 
 ```bash
 node src/verificar.js
 ```
 
-## ¿Qué preguntas responde el proyecto?
+No se requiere instalar dependencias con un gestor de paquetes.
 
-- ¿Cuánto dinero se ha vendido en total?
-- ¿Cuántas unidades se han vendido?
-- ¿Cuánto dinero se ha vendido por ciudad?
-- ¿Cuántas unidades se han vendido por producto?
-- ¿Cuáles son los tres productos con mayor valor de ventas?
+## Preguntas que responde
+
+- ¿Cuál es el valor total vendido y cuántas unidades se vendieron?
+- ¿Cuánto se vendió en cada ciudad y cuántas unidades se vendieron por producto?
+- ¿Cuáles son los productos con mayor valor de ventas?
 - ¿Cuántas ventas se realizaron en una fecha específica?
-- ¿Cuál es el ticket promedio de las ventas?
+- ¿Cuál es el ticket promedio?
+- ¿Qué clientes realizaron más de una compra y cuántas compras hizo cada cliente?
+- ¿Cuál es el producto más vendido en cada ciudad?
+- ¿Cuál es el primer cliente que aparece una sola vez?
+- ¿Qué período consecutivo de días tuvo las mayores ventas?
+- ¿Qué combinación de dos productos se ajusta a un valor o presupuesto?
 
-## Validaciones realizadas
+## Estructura del proyecto
 
-Se realizaron pruebas para comprobar que:
+```text
+.
+├── README.md
+├── RENDIMIENTO.md
+├── bitacora.md
+└── src/
+    ├── analitica.js
+    ├── catalogo.js
+    ├── datos.js
+    ├── explorar.js
+    ├── generador.js
+    ├── instrumentada.js
+    ├── medir.js
+    ├── optimizadas.js
+    ├── recurrentes.js
+    ├── reporte.js
+    └── verificar.js
+```
 
-- Las ciudades escritas con diferencias de mayúsculas o espacios no se contabilicen como grupos separados.
-- El ticket promedio no devuelva `NaN` cuando no existen ventas.
-- Una fecha sin ventas devuelva un arreglo vacío.
+### Archivos principales
 
-## Versión
+- `src/datos.js`: registros de ventas de ejemplo.
+- `src/catalogo.js`: catálogo de productos y precios.
+- `src/analitica.js`: cálculos de ventas, unidades, ciudades, productos, fechas y ticket promedio.
+- `src/optimizadas.js`: consultas adicionales y algoritmos optimizados, como clientes recurrentes, producto estrella por ciudad, mejor semana y combinaciones de productos.
+- `src/generador.js`: generación de ventas aleatorias para pruebas y mediciones.
+- `src/reporte.js`: compone y muestra el reporte de ventas y la comparación de rendimiento.
+- `src/verificar.js`: verificaciones de resultados y casos de prueba de las funciones analíticas.
 
-**v0.1** – Motor de analítica de ventas de Café Origen.
+### Archivos de exploración y rendimiento
+
+- `src/explorar.js`: inspección de los datos de ventas.
+- `src/instrumentada.js`: funciones que cuentan las operaciones ejecutadas.
+- `src/medir.js`: mediciones de operaciones y tiempos con distintos tamaños de datos.
+- `src/recurrentes.js`: medición de la estrategia de fuerza bruta para encontrar clientes recurrentes.
+- `RENDIMIENTO.md`: análisis de complejidad, mediciones y riesgos de rendimiento.
+- `bitacora.md`: registro del desarrollo y de las actividades del proyecto.
