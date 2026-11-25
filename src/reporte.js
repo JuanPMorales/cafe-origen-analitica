@@ -123,3 +123,49 @@ console.log("========== REPORTE DE VENTAS DATOS GENERADOS ==========");
 console.table(generarReporte(generarVentas(40)))
 
 
+// version v0.1: 
+
+function generarReporte01(ventas){
+    const total = totalVendido(ventas)
+    const unidades = unidadesVendidas(ventas)
+    const totalCiudad = totalPorCiudad(ventas)
+    const unidadProducto = unidadesPorProducto(ventas)
+    const top = topProductosPorValor(ventas, 3)
+    const ventasDia = ventasDelDia(ventas, "2026-09-01")
+    const ventasSinDia = ventasDelDia(ventas, "2026-09-07")
+
+    return {
+        total,
+        unidades,
+        totalCiudad,
+        unidadProducto,
+        top,
+        ventasDia,
+        ventasSinDia
+    };
+}
+
+const cantidades = [10000, 100000];
+const rendimiento = [];
+
+for (const n of cantidades) {
+    const ventasG = generarVentas(n)
+
+    const tiempoIV01 = performance.now()
+    generarReporte01(ventasG)
+    const tiempoFV01 = performance.now() - tiempoIV01
+
+    const tiempoIV1 = performance.now()
+    generarReporte(ventasG)
+    const tiempoFV1 = performance.now() - tiempoIV1
+    
+    rendimiento.push({
+        ventasG: n,
+        "V0.1": `${tiempoFV01.toFixed(3)} ms`,
+        "V1.0": `${tiempoFV1.toFixed(3)} ms`,
+        "Diferencia": `${(tiempoFV01 - tiempoFV1).toFixed(3)} ms`
+    })
+}
+
+console.log("========== COMPARACIÓN DE RENDIMIENTO ==========");
+console.table(rendimiento);

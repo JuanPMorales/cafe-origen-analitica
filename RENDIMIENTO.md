@@ -123,7 +123,7 @@ Las funciones O(n) presentan un crecimiento más controlado. Entre ellas, `total
 El orden de las funciones con complejidades similares es aproximado y puede variar según los datos utilizados.
 
 ---
-
+complejidades
 ## Plan de optimización
 
 ### Función seleccionada: `clientesRecurrentes()`
@@ -215,3 +215,22 @@ function clientesRecurrentes(ventas) {
     return [...recurrentes];
 }
 ```
+
+
+# Total rendimiento del reporte v0.1 y v1.0 con 10.000 y 100.000
+
+| Cantidad de ventas | v0.1 | v1.0 | Tiempo adicional |
+|---:|---:|---:|---:|
+| 10.000 | 5.584 ms | 10.114 ms | 4.530 ms |
+| 100.000 | 34.007 ms | 70.391 ms | 36.384 ms |
+
+### Análisis de resultados
+
+- Con 10.000 ventas, la v1.0 tarda 1.81 veces lo que tarda la v0.1.
+- Con 100.000 ventas, la v1.0 tarda 2.07 veces lo que tarda la v0.1.
+- Al multiplicar las ventas por 10, el tiempo de la v1.0
+  aumenta aproximadamente 6.96 veces.
+
+La versión v1.0 procesa 100.000 ventas en aproximadamente
+70 ms, ofreciendo más información con un tiempo de
+ejecución inferior a 100 ms en la prueba realizada.
